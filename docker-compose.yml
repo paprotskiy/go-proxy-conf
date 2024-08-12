@@ -1,0 +1,23 @@
+# go env must be set as
+# go env -w GOPROXY='http://localhost:3033,https://proxy.golang.org,direct'
+# go env -w GONOPROXY='<GIT_HOST'
+#
+# GIT_HOST will be something like github.com/company-with-private-repos
+
+
+services:
+  goproxy:
+    image: gomods/athens:latest
+    ports:
+      - "3033:3000"  # Expose port 3000 for the proxy server
+    environment:
+      - ATHENS_GOPROXY=proxy.golang.org
+      - ATHENS_GOPRIVATE=GIT_HOST  # Set to your private domain
+    volumes:
+      - goproxy_data:/athens/data  # Persist data
+      # file contains one row:: https://<PAT_TOKEN>:x-oauth-basic@<GIT_HOST>
+      # PAT token should have all repo permissions
+      - ./carebox-git-credentials:/root/.git-credentials
+
+volumes:
+  goproxy_data:
