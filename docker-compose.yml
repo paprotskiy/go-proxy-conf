@@ -1,6 +1,6 @@
 # go env must be set as
 # go env -w GOPROXY='http://localhost:3033,https://proxy.golang.org,direct'
-# go env -w GONOPROXY='<GIT_HOST'
+# go env -w GONOPROXY='<GIT_HOST>'
 #
 # GIT_HOST will be something like github.com/company-with-private-repos
 
